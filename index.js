@@ -18,6 +18,12 @@ mongoose
 
 const app = express();
 
+//import routes
+
+const userRoutes = require('./routes/user.routes')
+const offreRoutes = require('./routes/offre.routes')
+const clientRoutes = require('./routes/client.routes')
+const serviceRoutes = require('./routes/service.routes')
 // Setup static files path
 app.use("/uploads", express.static(path.join(__dirname + "/uploads")));
 // Use body parser middleware to parse body of incoming requests
@@ -37,6 +43,13 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// routes middleware
+
+app.use('/user', userRoutes)
+app.use('/offre', offreRoutes)
+app.use('/client', clientRoutes)
+app.use('/service', serviceRoutes)
 
 app.listen(3000, () => {
   console.log("app is running");

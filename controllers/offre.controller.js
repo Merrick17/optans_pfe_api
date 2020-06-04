@@ -9,18 +9,18 @@ module.exports.addOffer = async (req, res) => {
       minSalary: req.body.salary,
     });
     let res = await newOffer.save();
-    res.json({
+    return res.status(200).json({
       msg: "Offre Added",
     });
   } catch (ex) {
-    res.json({ err: ex });
+    return res.json({ err: ex });
   }
 };
 
 module.exports.getAllOffers = async (req, res) => {
   try {
     let result = await Offer.find();
-    res.json({ offers: result });
+    return res.status(200).json({ offers: result });
   } catch (ex) {
     res.json({ err: ex });
   }
@@ -29,7 +29,7 @@ module.exports.getAllOffers = async (req, res) => {
 module.exports.deleteOffer = async (req, res) => {
   try {
     await Offer.findByIdAndRemove(req.params.id);
-    res.json({ msg: "Offer Deleted" });
+    return res.status(200).json({ msg: "Offer Deleted" });
   } catch (ex) {
     res.json({ err: ex });
   }
@@ -41,8 +41,8 @@ module.exports.updateOffer = async (req, res) => {
   try {
     const dataToUpdate = req.body;
     const { ...updateData } = dataToUpdate;
-    const updateUser = await User.findByIdAndUpdate(id, updateData);
-    return res.json(updateUser);
+    const updateUser = await Offer.findByIdAndUpdate(id, updateData, {new:true});
+    return res.status(200).json(updateUser);
   } catch (ex) {
     res.json({ err: ex });
   }

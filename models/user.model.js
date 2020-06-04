@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
   {
-    fullname: { type: String, required: true, min: 7, max: 128 },
+    fullName: { type: String, required: true, min: 7, max: 128 },
     email: {
       type: String,
       required: [true, "can't be blank"],
